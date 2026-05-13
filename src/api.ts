@@ -1,4 +1,4 @@
-import Hono from "hono";
+import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { jwt } from "hono/jwt";
 import bcrypt from "bcryptjs";
