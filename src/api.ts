@@ -1,7 +1,7 @@
 import Hono from "hono";
 import { cors } from "hono/cors";
 import { jwt } from "hono/jwt";
-import { hash, verify } from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 const app = new Hono();
 
@@ -22,7 +22,7 @@ app.post("/api/auth/register", async (c) => {
       return c.json({ error: "Username and password required" }, 400);
     }
 
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     
     // Check if user exists
     const existing = await Bun.sql`
@@ -67,7 +67,7 @@ app.post("/api/auth/login", async (c) => {
     }
 
     const user = users[0];
-    const passwordMatch = await verify(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
       return c.json({ error: "Invalid credentials" }, 401);
