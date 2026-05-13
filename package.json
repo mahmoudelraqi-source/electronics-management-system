@@ -1,0 +1,13 @@
+{
+  "name": "electronics-management-system",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/api.ts",
+    "start": "bun run src/api.ts"
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "bcryptjs": "^2.4.3"
+  }
+}
