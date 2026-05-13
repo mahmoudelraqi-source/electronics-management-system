@@ -1,4 +1,6 @@
 // Database initialization script
+import bcrypt from "bcryptjs";
+
 const DATABASE_URL = Bun.env.DATABASE_URL;
 
 if (!DATABASE_URL) {
@@ -77,7 +79,7 @@ async function initializeDatabase() {
     console.log("✓ Indexes created");
 
     // Insert default user (admin / admin123)
-    const hashedPassword = await Bun.password.hash("admin123");
+    const hashedPassword = await bcrypt.hash("admin123", 10);
     await db`
       INSERT INTO users (username, password)
       VALUES ('admin', ${hashedPassword})
